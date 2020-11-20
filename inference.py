@@ -336,6 +336,12 @@ class ParticleFilter(InferenceModule):
         a belief distribution.
         """
         "*** YOUR CODE HERE ***"
+        updated_ghosts = []
+        for oldPos in self.particles:
+            find_pos = self.setGhostPosition(gameState, oldPos)
+            dist = self.getPositionDistribution(find_pos)
+            updated_ghosts.append(util.sample(dist))
+        self.particles = updated_ghosts
         newPosDist = util.Counter()
         for counter in range(self.numParticles):
           p = self.particles[counter]
